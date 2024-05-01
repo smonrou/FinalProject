@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DataAccessObject;
 
-import DataClass.Exposicion;
 import DataClass.Libro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,5 +49,96 @@ public class LibroDAO {
             System.out.println(e);
         }
         return result;
+    }
+
+    public Libro findById(int id) {
+        Libro at = null;
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(FINDBYID);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ide = rs.getInt("id");
+                String titulo = rs.getString("titulo");
+                String descripcion = rs.getString("descripcion");
+                String autor = rs.getString("autor");
+                String fechaPublicacion = rs.getString("fechaPublicacion");
+                String editorial = rs.getString("editorial");
+                String portada = rs.getString("portada");
+                int existencias = rs.getInt("existencias");
+                String genero = rs.getString("genero");
+                int visitas = rs.getInt("visitas");
+                at = new Libro(ide, titulo, descripcion, autor, fechaPublicacion, editorial, portada, existencias, genero, visitas);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return at;
+    }
+
+
+    public boolean updateEvento(Libro ev) {
+        boolean control = false;
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(UPDATE);
+            ps.setString(1, ev.getTitulo());
+            ps.setString(2, ev.getDescripcion());
+            ps.setString(3, ev.getAutor());
+            ps.setString(4, ev.getFechaPublicacion());
+            ps.setString(5, ev.getEditorial());
+            ps.setString(6, ev.getPortada());
+            ps.setString(7, ev.getGenero());
+            ps.setInt(8, ev.getId());
+            control = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return control;
+    }
+    
+    public boolean deleteEvent(int id) {
+        boolean control = false;
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(DELETE);
+            ps.setInt(1, id);
+            control = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return control;
+    }
+
+    public boolean insertEstudiante(Libro ev) {
+        boolean control = false;
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(INSERT);
+            ps.setString(1, ev.getTitulo());
+            ps.setString(2, ev.getDescripcion());
+            ps.setString(3, ev.getAutor());
+            ps.setString(4, ev.getFechaPublicacion());
+            ps.setString(5, ev.getEditorial());
+            ps.setString(6, ev.getPortada());
+            ps.setInt(7, ev.getExistencias());
+            ps.setString(8, ev.getGenero());
+            control = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return control;
+    }
+    
+        public boolean AddVisit(int id) {
+        boolean control = false;
+        Libro evento = findById(id);
+        int visitas = evento.getVisitas()+1;
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(ADDVISIT);
+            ps.setInt(1, visitas);
+            ps.setInt(2, id);
+            control = ps.executeUpdate() > 0;
+        }catch (SQLException e) {
+            System.out.println(e);
+        }
+        return control;
     }
 }
