@@ -17,14 +17,14 @@ public class Libro implements Serializable {
     private String titulo;
     private String descripcion;
     private String autor;
-    private Date fechaPublicacion;
+    private String fechaPublicacion;
     private String editorial;
     private String portada;
     private int existencias;
     private String genero;
     private int visitas;
 
-    public Libro(int id, String titulo, String descripcion, String autor, Date fechaPublicacion, String editorial, String portada, int existencias, String genero, int visitas) {
+    public Libro(int id, String titulo, String descripcion, String autor, String fechaPublicacion, String editorial, String portada, int existencias, String genero, int visitas) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -37,7 +37,7 @@ public class Libro implements Serializable {
         this.visitas = visitas;
     }
 
-    public Libro(String titulo, String descripcion, String autor, Date fechaPublicacion, String editorial, String portada, int existencias, String genero, int visitas) {
+    public Libro(String titulo, String descripcion, String autor, String fechaPublicacion, String editorial, String portada, int existencias, String genero, int visitas) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.autor = autor;
@@ -84,11 +84,11 @@ public class Libro implements Serializable {
         this.autor = autor;
     }
 
-    public Date getFechaPublicacion() {
+    public String getFechaPublicacion() {
         return fechaPublicacion;
     }
 
-    public void setFechaPublicacion(Date fechaPublicacion) {
+    public void setFechaPublicacion(String fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
 
