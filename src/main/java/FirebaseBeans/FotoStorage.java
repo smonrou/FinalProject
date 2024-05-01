@@ -3,7 +3,6 @@ package FirebaseBeans;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.RequestScoped;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +12,6 @@ import org.primefaces.model.file.UploadedFile;
  *
  * @author USUARIO
  */
-@ManagedBean
 @RequestScoped
 public class FotoStorage {
     private UploadedFile file;
