@@ -1,6 +1,5 @@
 package DataAccessObject;
 
-import DataClass.Exposicion;
 import DataClass.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

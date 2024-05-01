@@ -24,4 +24,8 @@ public class UsuariosProvider {
         }
         return result;
     }
+    
+    public static Usuario getUser(){
+        return userList.get(0);
+    }
 }
