@@ -24,8 +24,31 @@ public class ExposicionDAO {
     private final String DELETE = "delete from Exposiciones where id = ?";
     private final String INSERT = "INSERT INTO Exposiciones (nombre, descripcion, informacion, tema, portada) VALUES(?,?,?,?,?)";
     private final String ADDVISIT = "update Exposiciones set visitas = ? where id = ?";
+    private final String ORDERBYVISITS = "select * from Exposiciones order by visitas desc";
 
     public List<Exposicion> listAll() {
+        List<Exposicion> result = new ArrayList<>();
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(FINDALL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                String informacion = rs.getString("informacion");
+                String tema = rs.getString("tema");
+                String portada = rs.getString("portada");
+                int visitas = rs.getInt("visitas");
+                Exposicion at = new Exposicion(id, nombre, descripcion, informacion, tema, portada, visitas);
+                result.add(at);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return result;
+    }
+    
+    public List<Exposicion> findByPopularity() {
         List<Exposicion> result = new ArrayList<>();
         try {
             PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(FINDALL);

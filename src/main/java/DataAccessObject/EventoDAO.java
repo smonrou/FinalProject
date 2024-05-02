@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DataAccessObject;
 
 import DataClass.Evento;
@@ -28,11 +24,35 @@ public class EventoDAO {
     private final String DELETE = "delete from Eventos where id = ?";
     private final String INSERT = "INSERT INTO Eventos (nombre, descripcion, detalles, temas, fechaVigencia, portada) VALUES(?,?,?,?,?,?)";
     private final String ADDVISIT = "update Eventos set visitas = ? where id = ?";
+    private final String ORDERBYVISITS = "select * from Evento order by visitas desc";
 
     public List<Evento> listAll() {
         List<Evento> result = new ArrayList<>();
         try {
             PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(FINDALL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                String detalles = rs.getString("detalles");
+                String temas = rs.getString("temas");
+                String fechaVigencia = rs.getString("fechaVigencia");
+                String portada = rs.getString("portada");
+                int visitas = rs.getInt("visitas");
+                Evento at = new Evento(id, nombre, descripcion, detalles, temas, fechaVigencia, portada, visitas);
+                result.add(at);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return result;
+    }
+    
+    public List<Evento> findByPopularity() {
+        List<Evento> result = new ArrayList<>();
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(ORDERBYVISITS);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
