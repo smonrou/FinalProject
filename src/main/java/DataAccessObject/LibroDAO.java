@@ -25,11 +25,36 @@ public class LibroDAO {
     private final String DELETE = "delete from Libros where id = ?";
     private final String INSERT = "insert into Libros(titulo, descripcion, autor, fechaPublicacion, editorial, portada, existencias, genero) VALUES(?,?,?,?,?,?,?,?)";
     private final String ADDVISIT = "update Libros set visitas = ? where id = ?";
-
+    private final String ORDERBYVISITS = "select * from Libros order by visitas desc";
     public List<Libro> listAll() {
         List<Libro> result = new ArrayList<>();
         try {
             PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(FINDALL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String titulo = rs.getString("titulo");
+                String descripcion = rs.getString("descripcion");
+                String autor = rs.getString("autor");
+                String fechaPublicacion = rs.getString("fechaPublicacion");
+                String editorial = rs.getString("editorial");
+                String portada = rs.getString("portada");
+                int existencias = rs.getInt("existencias");
+                String genero = rs.getString("genero");
+                int visitas = rs.getInt("visitas");
+                Libro at = new Libro(id, titulo, descripcion, autor, fechaPublicacion, editorial, portada, existencias, genero, visitas);
+                result.add(at);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return result;
+    }
+    
+    public List<Libro> listByPopularity() {
+        List<Libro> result = new ArrayList<>();
+        try {
+            PreparedStatement ps = Conexion.obtenerConexion().prepareStatement(ORDERBYVISITS);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
