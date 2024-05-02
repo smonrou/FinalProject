@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DataClass;
 
 import java.io.Serializable;
@@ -11,26 +8,18 @@ import java.io.Serializable;
  * @author CRISTOPHER
  */
 public class Comentario implements Serializable{
-    
-    private int id;
-    private int usuario;
-    private String fecha;
-    private String contenido;
-    private int likes;
+    private int id, id_usuario;
+    private String nombre;
+    private int idPublicacion;
+    private String fecha, contenido;
 
-    public Comentario(int id, int usuario, String fecha, String contenido, int likes) {
+    public Comentario(int id, int id_usuario, String nombre, int idPublicacion, String fecha, String contenido) {
         this.id = id;
-        this.usuario = usuario;
+        this.id_usuario = id_usuario;
+        this.nombre = nombre;
+        this.idPublicacion = idPublicacion;
         this.fecha = fecha;
         this.contenido = contenido;
-        this.likes = likes;
-    }
-
-    public Comentario(int usuario, String fecha, String contenido, int likes) {
-        this.usuario = usuario;
-        this.fecha = fecha;
-        this.contenido = contenido;
-        this.likes = likes;
     }
 
     public Comentario() {
@@ -44,12 +33,28 @@ public class Comentario implements Serializable{
         this.id = id;
     }
 
-    public int getUsuario() {
-        return usuario;
+    public int getId_usuario() {
+        return id_usuario;
     }
 
-    public void setUsuario(int usuario) {
-        this.usuario = usuario;
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getIdPublicacion() {
+        return idPublicacion;
+    }
+
+    public void setIdPublicacion(int idPublicacion) {
+        this.idPublicacion = idPublicacion;
     }
 
     public String getFecha() {
@@ -68,20 +73,10 @@ public class Comentario implements Serializable{
         this.contenido = contenido;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
     @Override
     public String toString() {
-        return "Comentario{" + "id=" + id + ", usuario=" + usuario + ", fecha=" + fecha + ", contenido=" + contenido + ", likes=" + likes + '}';
+        return "Comentario{" + "id=" + id + ", id_usuario=" + id_usuario + ", nombre=" + nombre + ", idPublicacion=" + idPublicacion + ", fecha=" + fecha + ", contenido=" + contenido + '}';
     }
-    
-    
-    
+   
     
 }
